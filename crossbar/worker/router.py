@@ -107,9 +107,6 @@ from crossbar.twisted.site import patchFileContentTypes
 
 from crossbar.twisted.resource import _HAS_CGI
 
-from crossbar.adapter.rest import PublisherResource, CallerResource
-from crossbar.adapter.rest import WebhookResource
-
 if _HAS_CGI:
     from crossbar.twisted.resource import CgiDirectory
 
@@ -1113,54 +1110,54 @@ class RouterWorkerSession(NativeWorkerSession):
 
         # Publisher resource (part of REST-bridge)
         #
-        elif path_config['type'] == 'publisher':
-
-            # create a vanilla session: the publisher will use this to inject events
-            #
-            publisher_session_config = ComponentConfig(realm=path_config['realm'], extra=None)
-            publisher_session = ApplicationSession(publisher_session_config)
-
-            # add the publisher session to the router
-            #
-            self._router_session_factory.add(publisher_session, authrole=path_config.get('role', 'anonymous'))
-
-            # now create the publisher Twisted Web resource
-            #
-            return PublisherResource(path_config.get('options', {}), publisher_session)
+        # elif path_config['type'] == 'publisher':
+        #
+        #     # create a vanilla session: the publisher will use this to inject events
+        #     #
+        #     publisher_session_config = ComponentConfig(realm=path_config['realm'], extra=None)
+        #     publisher_session = ApplicationSession(publisher_session_config)
+        #
+        #     # add the publisher session to the router
+        #     #
+        #     self._router_session_factory.add(publisher_session, authrole=path_config.get('role', 'anonymous'))
+        #
+        #     # now create the publisher Twisted Web resource
+        #     #
+        #     return PublisherResource(path_config.get('options', {}), publisher_session)
 
         # Webhook resource (part of REST-bridge)
         #
-        elif path_config['type'] == 'webhook':
-
-            # create a vanilla session: the webhook will use this to inject events
-            #
-            webhook_session_config = ComponentConfig(realm=path_config['realm'], extra=None)
-            webhook_session = ApplicationSession(webhook_session_config)
-
-            # add the webhook session to the router
-            #
-            self._router_session_factory.add(webhook_session, authrole=path_config.get('role', 'anonymous'))
-
-            # now create the webhook Twisted Web resource
-            #
-            return WebhookResource(path_config.get('options', {}), webhook_session)
+        # elif path_config['type'] == 'webhook':
+        #
+        #     # create a vanilla session: the webhook will use this to inject events
+        #     #
+        #     webhook_session_config = ComponentConfig(realm=path_config['realm'], extra=None)
+        #     webhook_session = ApplicationSession(webhook_session_config)
+        #
+        #     # add the webhook session to the router
+        #     #
+        #     self._router_session_factory.add(webhook_session, authrole=path_config.get('role', 'anonymous'))
+        #
+        #     # now create the webhook Twisted Web resource
+        #     #
+        #     return WebhookResource(path_config.get('options', {}), webhook_session)
 
         # Caller resource (part of REST-bridge)
         #
-        elif path_config['type'] == 'caller':
-
-            # create a vanilla session: the caller will use this to inject calls
-            #
-            caller_session_config = ComponentConfig(realm=path_config['realm'], extra=None)
-            caller_session = ApplicationSession(caller_session_config)
-
-            # add the calling session to the router
-            #
-            self._router_session_factory.add(caller_session, authrole=path_config.get('role', 'anonymous'))
-
-            # now create the caller Twisted Web resource
-            #
-            return CallerResource(path_config.get('options', {}), caller_session)
+        # elif path_config['type'] == 'caller':
+        #
+        #     # create a vanilla session: the caller will use this to inject calls
+        #     #
+        #     caller_session_config = ComponentConfig(realm=path_config['realm'], extra=None)
+        #     caller_session = ApplicationSession(caller_session_config)
+        #
+        #     # add the calling session to the router
+        #     #
+        #     self._router_session_factory.add(caller_session, authrole=path_config.get('role', 'anonymous'))
+        #
+        #     # now create the caller Twisted Web resource
+        #     #
+        #     return CallerResource(path_config.get('options', {}), caller_session)
 
         # File Upload resource
         #
